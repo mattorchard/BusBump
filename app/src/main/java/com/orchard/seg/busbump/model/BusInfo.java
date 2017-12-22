@@ -41,15 +41,15 @@ public class BusInfo {
         this.mArrivals = arrivals;
     }
 
-    public long getmId() {
+    public long getId() {
         return mId;
     }
 
-    public int getmStopNumber() {
+    public int getStopNumber() {
         return mStopNumber;
     }
 
-    public int getmBusNumber() {
+    public int getBusNumber() {
         return mBusNumber;
     }
 
