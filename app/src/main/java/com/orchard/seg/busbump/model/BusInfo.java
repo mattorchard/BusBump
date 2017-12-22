@@ -7,6 +7,7 @@ public class BusInfo {
     private final int mBusNumber;
     private int mDirectionNumber;
 
+    private final boolean mLoadOnLaunch;
     private final String mName;
     private final String mColor;
 
@@ -16,17 +17,19 @@ public class BusInfo {
     public BusInfo(int stopNumber,
                    int busNumber,
                    int directionNumber,
+                   boolean loadOnLaunch,
                    String name,
                    String color) {
         this.mStopNumber = stopNumber;
         this.mBusNumber = busNumber;
         this.mDirectionNumber = directionNumber;
+        this.mLoadOnLaunch = loadOnLaunch;
         this.mName = name;
         this.mColor = color;
     }
 
     public BusInfo(int stopNumber, int busNumber, int directionNumber) {
-        this(stopNumber, busNumber, directionNumber, null, null);
+        this(stopNumber, busNumber, directionNumber, false, null, null);
     }
 
     public BusInfo(int stopNumber, int busNumber) {
@@ -55,6 +58,10 @@ public class BusInfo {
 
     public int getDirectionNumber() {
         return mDirectionNumber;
+    }
+
+    public boolean loadOnLaunch() {
+        return mLoadOnLaunch;
     }
 
     public String getName() {
