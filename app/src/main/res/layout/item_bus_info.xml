@@ -6,7 +6,9 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_item_bus_info_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Placeholder"/>
+        android:text="Placeholder"
+        style="@style/TextAppearance.AppCompat.Body1"/>
 </LinearLayout>
