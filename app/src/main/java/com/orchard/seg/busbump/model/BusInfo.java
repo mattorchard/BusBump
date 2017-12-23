@@ -1,5 +1,8 @@
 package com.orchard.seg.busbump.model;
 
+
+import java.util.Locale;
+
 public class BusInfo {
     private long mId = -1;
 
@@ -34,6 +37,12 @@ public class BusInfo {
 
     public BusInfo(int stopNumber, int busNumber) {
         this(stopNumber, busNumber, 0);
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.US, "BusInfo(%d, %d, %d, %b, %s, %s)",
+                        mStopNumber, mBusNumber, mDirectionNumber, mLoadOnLaunch, mName, mColor);
     }
 
     public void setId(long id) {

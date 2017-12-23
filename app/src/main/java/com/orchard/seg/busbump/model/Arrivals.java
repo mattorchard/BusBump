@@ -1,6 +1,8 @@
 package com.orchard.seg.busbump.model;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 
 public class Arrivals {
     private final Date mAcquiredAt;
@@ -14,6 +16,12 @@ public class Arrivals {
         }
         this.mAcquiredAt = acquiredAt;
         this.mArrivals = mArrivals;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.US, "Arrivals(%s, %s)",
+                mAcquiredAt.toString(), Arrays.toString(mArrivals));
     }
 
     public Date getAcquiredAt() {
