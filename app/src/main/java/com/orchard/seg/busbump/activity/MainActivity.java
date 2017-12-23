@@ -14,12 +14,14 @@ import android.view.MenuItem;
 import com.orchard.seg.busbump.R;
 import com.orchard.seg.busbump.adapter.BusInfoAdapter;
 import com.orchard.seg.busbump.model.BusInfo;
+import com.orchard.seg.busbump.repository.BusInfoRepository;
 import com.orchard.seg.busbump.viewholder.BusInfoViewHolder;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     private List<BusInfo> mDataSet;
 
@@ -35,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Todo: Replace placeholder data with call to ORM for placeholder data.
-        mDataSet = getSampleDataSet();
+        BusInfoRepository busInfoRepository = new BusInfoRepository(MainActivity.this);
+        mDataSet = busInfoRepository.getBusInfoDataSet();
 
         mBusInfoRv = (RecyclerView) findViewById(R.id.rv_main_bus_list);
         mBusInfoLayoutManager = new LinearLayoutManager(MainActivity.this);
@@ -51,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    //Todo: Should be removed once BusInfo CRUD is implemented
+    @Deprecated
+    private void injectSampleData() {
+        BusInfoRepository repo = new BusInfoRepository(MainActivity.this);
+        repo.injectSampleData();
     }
 
     @Override
@@ -70,17 +80,11 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_refresh_all) {
+            return true;
+        } else if (id == R.id.action_inject_sample_data) {
+            injectSampleData();
         }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    //Todo: Remove this method and replace with ORM.
-    private List<BusInfo> getSampleDataSet() {
-        List<BusInfo> dataSet = new LinkedList<>();
-        dataSet.add(new BusInfo(7613, 16));
-        dataSet.add(new BusInfo(7610, 16));
-        dataSet.add(new BusInfo(3020, 97, 1));
-        return dataSet;
     }
 }

@@ -41,8 +41,14 @@ public class BusInfo {
 
     @Override
     public String toString() {
-        return String.format(Locale.US, "BusInfo(%d, %d, %d, %b, %s, %s)",
-                        mStopNumber, mBusNumber, mDirectionNumber, mLoadOnLaunch, mName, mColor);
+        return String.format(Locale.US, "BusInfo(%d %d, %d, %d, %b, %s, %s)",
+                mId,
+                mStopNumber,
+                mBusNumber,
+                mDirectionNumber,
+                mLoadOnLaunch,
+                mName,
+                mColor);
     }
 
     public void setId(long id) {
