@@ -15,6 +15,7 @@ import com.orchard.seg.busbump.R;
 import com.orchard.seg.busbump.adapter.BusInfoAdapter;
 import com.orchard.seg.busbump.model.BusInfo;
 import com.orchard.seg.busbump.repository.BusInfoRepository;
+import com.orchard.seg.busbump.task.GetArrivals;
 import com.orchard.seg.busbump.viewholder.BusInfoViewHolder;
 
 import java.util.List;
@@ -54,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        testAsyncTask();
+    }
+
+    public void testAsyncTask() {
+        GetArrivals<MainActivity> getArrivals = new GetArrivals<>(MainActivity.this);
+        getArrivals.execute(mDataSet.toArray(new BusInfo[mDataSet.size()]));
     }
 
     //Todo: Should be removed once BusInfo CRUD is implemented
