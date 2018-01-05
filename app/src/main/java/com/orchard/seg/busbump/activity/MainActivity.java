@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         testAsyncTask();
     }
 
+    //Todo: Should be removed once more of the UI is implemented
     public void testAsyncTask() {
         GetArrivals<MainActivity> getArrivals = new GetArrivals<>(MainActivity.this);
         getArrivals.execute(mDataSet.toArray(new BusInfo[mDataSet.size()]));
