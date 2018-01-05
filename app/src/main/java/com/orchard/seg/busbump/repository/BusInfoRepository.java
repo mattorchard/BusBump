@@ -124,9 +124,9 @@ public class BusInfoRepository extends SQLiteOpenHelper {
     @Deprecated
     private List<BusInfo> getSampleDataSet() {
         List<BusInfo> dataSet = new LinkedList<>();
-        dataSet.add(new BusInfo(7613, 16));
-        dataSet.add(new BusInfo(7610, 16));
-        dataSet.add(new BusInfo(3020, 97, 1));
+        dataSet.add(new BusInfo(7613, 16, 1));
+        dataSet.add(new BusInfo(7610, 16, 0));
+        dataSet.add(new BusInfo(3020, 44, 1));
         return dataSet;
     }
 
