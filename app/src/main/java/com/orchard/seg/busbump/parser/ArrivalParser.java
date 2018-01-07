@@ -6,5 +6,5 @@ import com.orchard.seg.busbump.model.BusInfo;
 import java.io.IOException;
 
 public interface ArrivalParser {
-    public abstract Arrivals readArrivals(String message) throws IOException;
+    Arrivals readArrivals(String message) throws IOException;
 }
