@@ -1,8 +1,6 @@
 package com.orchard.seg.busbump.parser;
 
 
-import android.text.TextUtils;
-
 import com.orchard.seg.busbump.model.Arrivals;
 import com.orchard.seg.busbump.model.BusInfo;
 
@@ -14,7 +12,7 @@ import java.io.IOException;
 import java.util.Date;
 
 
-public class JsonArrivalParser implements ArrivalParser {
+public class JsonArrivalParser extends OCTranspoJsonParser implements ArrivalParser {
 
     private static final int MS_IN_MIN = 60000;
 
@@ -29,7 +27,7 @@ public class JsonArrivalParser implements ArrivalParser {
         try {
             JSONObject json = new JSONObject(message);
             json = json.getJSONObject("GetRouteSummaryForStopResult");
-            checkForError(json);
+            raiseOCTranspoError(json);
             json = json.getJSONObject("Routes");
 
             Object routeObject = json.get("Route");
@@ -45,14 +43,6 @@ public class JsonArrivalParser implements ArrivalParser {
             throw new IOException(ex);
         }
     }
-
-    private void checkForError(JSONObject jsonResponse) throws JSONException, OCTranspoException {
-        if (jsonResponse.has("Error")
-                && !TextUtils.isEmpty(jsonResponse.getString("Error"))) {
-            throw new OCTranspoException(jsonResponse.getString("Error"));
-        }
-    }
-
 
     private Arrivals arrivalsFromJsonArray(JSONArray jsonArray) throws JSONException {
         for (int i = 0; i < jsonArray.length(); i++) {
