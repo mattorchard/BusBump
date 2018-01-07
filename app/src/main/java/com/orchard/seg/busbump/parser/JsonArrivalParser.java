@@ -24,27 +24,22 @@ public class JsonArrivalParser extends OCTranspoJsonParser implements ArrivalPar
 
     @Override
     public Arrivals readArrivals(String message) throws IOException {
-        try {
+        try{
             JSONObject json = new JSONObject(message);
             json = json.getJSONObject("GetRouteSummaryForStopResult");
             raiseOCTranspoError(json);
             json = json.getJSONObject("Routes");
-
-            Object routeObject = json.get("Route");
-
-            if (routeObject instanceof JSONObject) {
-                return arrivalsFromJson((JSONObject) routeObject);
-            } else if (routeObject instanceof JSONArray) {
-                return arrivalsFromJsonArray((JSONArray) routeObject);
+            if (isJsonArray(json.get("Route"))) {
+                return arrivalsFromJson(json.getJSONArray("Route"));
             } else {
-                throw new JSONException("Route data in unexpected format");
+                return arrivalsFromJson(json.getJSONObject("Route"));
             }
         } catch (JSONException ex) {
             throw new IOException(ex);
         }
     }
 
-    private Arrivals arrivalsFromJsonArray(JSONArray jsonArray) throws JSONException {
+    private Arrivals arrivalsFromJson(JSONArray jsonArray) throws JSONException {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject arrivalJson = jsonArray.getJSONObject(i);
             if (arrivalJson.getInt("RouteNo") == mInterest.getBusNumber()
