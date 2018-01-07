@@ -7,22 +7,18 @@ import android.util.Log;
 import com.orchard.seg.busbump.model.Arrivals;
 import com.orchard.seg.busbump.model.BusInfo;
 import com.orchard.seg.busbump.parser.ArrivalParser;
-import com.orchard.seg.busbump.network.ArrivalRestClient;
+import com.orchard.seg.busbump.network.OCTranspoRestClient;
 import com.orchard.seg.busbump.parser.JsonArrivalParser;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-public class GetArrivals<C extends Context> extends AsyncTask <BusInfo, Integer, Arrivals[]> {
+public class GetArrivals <C extends Context> extends RestTask <BusInfo, Arrivals[], C> {
 
     private static final String TAG = "GetArrivals";
 
-    private final WeakReference<C> mContext;
-    private final ArrivalRestClient mRestAdapter;
-
     public GetArrivals(C context) {
-        mContext = new WeakReference<>(context);
-        mRestAdapter = new ArrivalRestClient(context.getResources());
+        super(context);
     }
 
     private Arrivals fetchArrivalsForBusInfo(BusInfo busInfo) throws IOException{
@@ -52,15 +48,12 @@ public class GetArrivals<C extends Context> extends AsyncTask <BusInfo, Integer,
         return arrivalsArray;
     }
 
-    @Override
-    protected void onPostExecute(Arrivals[] arrivals) {
-        C context = mContext.get();
-        if(context != null) {
-            onPostExecute(arrivals, context);
-        }
+    protected void onPostExecute(Arrivals[] arrivals, C context) {
+        //Todo: Make abstract once GetArrivals is subclassed
     }
 
-    protected void onPostExecute(Arrivals[] arrivals, C context) {
+    @Override
+    protected void onCancelled(Arrivals[] partialResults, C context) {
         //Todo: Make abstract once GetArrivals is subclassed
     }
 }

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="octranspo_base_url">http://api.octranspo1.com/v1.2/</string>
-    <string name="octranspo_endpoint_get_arrivals">GetNextTripsForStopAllRoutes</string>
 </resources>
