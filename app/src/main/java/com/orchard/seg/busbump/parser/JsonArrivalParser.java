@@ -1,8 +1,6 @@
 package com.orchard.seg.busbump.parser;
 
 
-import android.text.TextUtils;
-
 import com.orchard.seg.busbump.model.Arrivals;
 import com.orchard.seg.busbump.model.BusInfo;
 
@@ -14,7 +12,7 @@ import java.io.IOException;
 import java.util.Date;
 
 
-public class JsonArrivalParser implements ArrivalParser {
+public class JsonArrivalParser extends OCTranspoJsonParser implements ArrivalParser {
 
     private static final int MS_IN_MIN = 60000;
 
@@ -26,35 +24,22 @@ public class JsonArrivalParser implements ArrivalParser {
 
     @Override
     public Arrivals readArrivals(String message) throws IOException {
-        try {
+        try{
             JSONObject json = new JSONObject(message);
             json = json.getJSONObject("GetRouteSummaryForStopResult");
-            checkForError(json);
+            raiseOCTranspoError(json);
             json = json.getJSONObject("Routes");
-
-            Object routeObject = json.get("Route");
-
-            if (routeObject instanceof JSONObject) {
-                return arrivalsFromJson((JSONObject) routeObject);
-            } else if (routeObject instanceof JSONArray) {
-                return arrivalsFromJsonArray((JSONArray) routeObject);
+            if (isJsonArray(json.get("Route"))) {
+                return arrivalsFromJson(json.getJSONArray("Route"));
             } else {
-                throw new JSONException("Route data in unexpected format");
+                return arrivalsFromJson(json.getJSONObject("Route"));
             }
         } catch (JSONException ex) {
             throw new IOException(ex);
         }
     }
 
-    private void checkForError(JSONObject jsonResponse) throws JSONException, OCTranspoException {
-        if (jsonResponse.has("Error")
-                && !TextUtils.isEmpty(jsonResponse.getString("Error"))) {
-            throw new OCTranspoException(jsonResponse.getString("Error"));
-        }
-    }
-
-
-    private Arrivals arrivalsFromJsonArray(JSONArray jsonArray) throws JSONException {
+    private Arrivals arrivalsFromJson(JSONArray jsonArray) throws JSONException {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject arrivalJson = jsonArray.getJSONObject(i);
             if (arrivalJson.getInt("RouteNo") == mInterest.getBusNumber()

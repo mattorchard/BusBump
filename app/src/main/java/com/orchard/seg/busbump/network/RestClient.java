@@ -1,6 +1,7 @@
 package com.orchard.seg.busbump.network;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -9,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collection;
 
 
 public class RestClient {
@@ -23,11 +25,11 @@ public class RestClient {
         }
     }
 
-    public String getRequest(String urlPath) throws IOException {
+    String getRequest(String urlPath) throws IOException {
         return getRequest(urlPath, HttpURLConnection.HTTP_OK);
     }
 
-    public String getRequest(String urlPath, int expectedResponseCode) throws IOException {
+    String getRequest(String urlPath, int expectedResponseCode) throws IOException {
         String urlFull = mUrlBase + urlPath;
         Log.d("FooBar", "Making request to: " + urlFull);
         HttpURLConnection connection =(HttpURLConnection)new URL(urlFull).openConnection();
@@ -57,5 +59,9 @@ public class RestClient {
         } finally {
             stream.close();
         }
+    }
+
+    String formatQueryString(String... vars) {
+        return "?" + TextUtils.join("&", vars);
     }
 }
