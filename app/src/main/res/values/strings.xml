@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">BusBump</string>
+
+    <!-- Action Items -->
     <string name="action_settings">Settings</string>
     <string name="action_refresh_all">Refresh all</string>
     <string name="action_inject_sample_data">Inject sample data</string>
+
+    <!-- Bus Info Creation Dialog -->
+    <string name="bus_info_dialog_stop_no">Stop number</string>
+    <string name="bus_info_dialog_message_enter">Please enter a 4-digit stop number</string>
+    <string name="bus_info_dialog_message_error">Unable to fetch available routes</string>
+    <string name="bus_info_dialog_message_empty">No routes</string>
+    <string name="bus_info_dialog_button_negative">Cancel</string>
+    <string name="bus_info_dialog_button_positive">Save</string>
+
+    <!-- Route Item -->
+    <string name="route_item_route_no">1234</string>
+    <string name="route_item_direction">Westbound</string>
+    <string name="route_item_heading">Britannia</string>
 </resources>

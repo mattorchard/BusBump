@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tv_item_route_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/route_item_route_no"
+        android:padding="5dp"
+        style="@style/TextAppearance.AppCompat.Body1"/>
+
+    <TextView
+        android:id="@+id/tv_item_route_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/route_item_heading"
+        android:padding="5dp"
+        style="@style/TextAppearance.AppCompat.Body1"/>
+
+    <TextView
+        android:id="@+id/tv_item_route_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/route_item_direction"
+        android:padding="5dp"
+        style="@style/TextAppearance.AppCompat.Body1"/>
+
+</LinearLayout>
