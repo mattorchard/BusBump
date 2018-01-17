@@ -16,11 +16,10 @@ public class OCTranspoRestClient extends RestClient {
     private final String mAppIdQs;
     private final String mApiKeyQs;
 
-
-    public OCTranspoRestClient(@NonNull Resources resources) {
-        super(resources.getString(R.string.octranspo_base_url));
-        mAppIdQs = "appID=" + resources.getString(R.string.octranspo_app_id_1);
-        mApiKeyQs = "apiKey=" + resources.getString(R.string.octranspo_api_key_1);
+    public OCTranspoRestClient(String urlBase, String appId, String apiKey) {
+        super(urlBase);
+        mAppIdQs = "appID=" + appId;
+        mApiKeyQs = "apiKey=" + apiKey;
     }
 
     public String getBusTimes(int stopNo) throws IOException {

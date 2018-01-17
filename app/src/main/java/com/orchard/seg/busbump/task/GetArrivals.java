@@ -17,8 +17,8 @@ public class GetArrivals extends RestTask <BusInfo, Arrivals[]> {
 
     private static final String TAG = "GetArrivals";
 
-    public GetArrivals(Context context) {
-        super(context);
+    public GetArrivals(OCTranspoRestClient restClient) {
+        super(restClient);
     }
 
     private Arrivals fetchArrivalsForBusInfo(BusInfo busInfo) throws IOException{

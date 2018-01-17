@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.orchard.seg.busbump.model.Route;
+import com.orchard.seg.busbump.network.OCTranspoRestClient;
 import com.orchard.seg.busbump.parser.JsonRouteParser;
 
 
@@ -14,8 +15,8 @@ public class GetRoutes extends RestTask <Integer, List<Route>> {
 
     private static final String TAG = "GetRoutes";
 
-    public GetRoutes(Context context) {
-        super(context);
+    public GetRoutes(OCTranspoRestClient restClient) {
+        super(restClient);
     }
 
     @Override
