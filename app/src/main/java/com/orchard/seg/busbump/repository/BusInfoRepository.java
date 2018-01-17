@@ -65,14 +65,22 @@ public class BusInfoRepository extends SQLiteOpenHelper {
         ContentValues values = valuesFromBusInfo(busInfo);
         if (busInfo.getId() < 0) {
             long id =  db.insert(BusInfoTable.TABLE_NAME.get(), null, values);
+            db.close();
             busInfo.setId(id);
             return id;
         } else {
             db.update(BusInfoTable.TABLE_NAME.get(), values,
                     "ID=?",
                     new String[]{String.valueOf(busInfo.getId())});
+            db.close();
             return busInfo.getId();
         }
+    }
+
+    public void deleteAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(BusInfoTable.TABLE_NAME.get(), null, null);
+        db.close();
     }
 
     //Todo: Populate ID field
@@ -121,6 +129,7 @@ public class BusInfoRepository extends SQLiteOpenHelper {
             insertBusInfo(busInfo);
         }
     }
+
     @Deprecated
     private List<BusInfo> getSampleDataSet() {
         List<BusInfo> dataSet = new LinkedList<>();

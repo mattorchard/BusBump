@@ -1,5 +1,6 @@
 package com.orchard.seg.busbump.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +13,11 @@ import android.view.MenuItem;
 
 import com.orchard.seg.busbump.R;
 import com.orchard.seg.busbump.adapter.BusInfoAdapter;
+import com.orchard.seg.busbump.dialog.BidmPrototype;
+import com.orchard.seg.busbump.dialog.OnDialogFinishListener;
 import com.orchard.seg.busbump.model.BusInfo;
+import com.orchard.seg.busbump.model.Route;
 import com.orchard.seg.busbump.repository.BusInfoRepository;
-import com.orchard.seg.busbump.task.GetArrivals;
-import com.orchard.seg.busbump.task.GetRoutes;
 import com.orchard.seg.busbump.viewholder.BusInfoViewHolder;
 
 import java.util.List;
@@ -51,23 +53,36 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                testBusInfoTask();
+                showBusInfoCreationDialog();
             }
         });
-        testArrivalTask();
     }
 
-    //Todo: Should be removed once more of the UI is implemented
-    public void testArrivalTask() {
-        GetArrivals<MainActivity> getArrivals = new GetArrivals<>(MainActivity.this);
-        getArrivals.execute(mDataSet.toArray(new BusInfo[mDataSet.size()]));
+    public void showBusInfoCreationDialog() {
+        BidmPrototype dialogManager =
+                new BidmPrototype(MainActivity.this,
+                        getLayoutInflater());
+        dialogManager.setOnDialogFinishListener(new OnDialogFinishListener() {
+            @Override
+            public void finish(Intent intent) {
+                int stopNo = intent.getIntExtra(BidmPrototype.INTENT_STOP_NO, -1);
+                if (stopNo != -1) {
+                    Route route = (Route) intent
+                            .getSerializableExtra(BidmPrototype.INTENT_ROUTE);
+                    addBusInfo(new BusInfo(stopNo,
+                            route.getRouteNo(),
+                            route.getDirectionId()));
+                }
+            }
+        });
+        dialogManager.show();
     }
 
-    public void testBusInfoTask() {
-        GetRoutes<MainActivity> getRoutes = new GetRoutes<>(MainActivity.this);
-        getRoutes.execute(3020);
-        GetRoutes<MainActivity> getMoreRoutes = new GetRoutes<>(MainActivity.this);
-        getMoreRoutes.execute(7613);
+    public void addBusInfo(BusInfo busInfo) {
+        BusInfoRepository repo = new BusInfoRepository(MainActivity.this);
+        repo.insertBusInfo(busInfo);
+        mDataSet.add(busInfo);
+        mBusInfoAdapter.notifyDataSetChanged();
     }
 
     //Todo: Should be removed once BusInfo CRUD is implemented
@@ -75,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
     private void injectSampleData() {
         BusInfoRepository repo = new BusInfoRepository(MainActivity.this);
         repo.injectSampleData();
+    }
+    //Todo: Should be removed once BusInfo CRUD is implemented
+    @Deprecated
+    private void deleteAllData() {
+        BusInfoRepository repo = new BusInfoRepository(MainActivity.this);
+        repo.deleteAll();
     }
 
     @Override
@@ -98,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_inject_sample_data) {
             injectSampleData();
+        } else if (id == R.id.action_delete_local_data) {
+            deleteAllData();
         }
         return super.onOptionsItemSelected(item);
     }
