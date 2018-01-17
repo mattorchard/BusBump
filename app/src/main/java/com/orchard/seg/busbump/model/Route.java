@@ -1,9 +1,10 @@
 package com.orchard.seg.busbump.model;
 
 
+import java.io.Serializable;
 import java.util.Locale;
 
-public class Route {
+public class Route implements Serializable{
 
     private final int mRouteNo;
     private final int mDirectionId;

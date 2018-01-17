@@ -11,11 +11,11 @@ import com.orchard.seg.busbump.viewholder.RouteViewHolder;
 
 import java.util.List;
 
-public class RouteAdapter extends RecyclerView.Adapter<RouteViewHolder> {
+public abstract class RouteAdapter extends RecyclerView.Adapter<RouteViewHolder> {
 
     private List<Route> mDataSet;
 
-    public RouteAdapter(List<Route> routes) {
+    protected RouteAdapter(List<Route> routes) {
         this.mDataSet = routes;
     }
 
@@ -27,13 +27,26 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RouteViewHolder holder, int position) {
+    public void onBindViewHolder(final RouteViewHolder holder, int position) {
         Route route = mDataSet.get(position);
         holder.bindView(route);
+        holder.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                onItemClick(holder.getRoute());
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mDataSet.size();
     }
+
+    public void setDataSet(List<Route> routes) {
+        mDataSet.clear();
+        mDataSet.addAll(routes);
+        this.notifyDataSetChanged();
+    }
+
+    abstract protected void onItemClick(Route route);
 }
