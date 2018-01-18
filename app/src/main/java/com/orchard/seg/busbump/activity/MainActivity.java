@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import com.orchard.seg.busbump.R;
 import com.orchard.seg.busbump.adapter.BusInfoAdapter;
-import com.orchard.seg.busbump.dialog.BidmPrototype;
+import com.orchard.seg.busbump.dialog.AddBusInfoDialogManager;
 import com.orchard.seg.busbump.dialog.OnDialogFinishListener;
 import com.orchard.seg.busbump.model.BusInfo;
 import com.orchard.seg.busbump.model.Route;
@@ -59,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showBusInfoCreationDialog() {
-        BidmPrototype dialogManager =
-                new BidmPrototype(MainActivity.this,
+        AddBusInfoDialogManager dialogManager =
+                new AddBusInfoDialogManager(MainActivity.this,
                         getLayoutInflater());
         dialogManager.setOnDialogFinishListener(new OnDialogFinishListener() {
             @Override
             public void finish(Intent intent) {
-                int stopNo = intent.getIntExtra(BidmPrototype.INTENT_STOP_NO, -1);
+                int stopNo = intent.getIntExtra(AddBusInfoDialogManager.INTENT_STOP_NO, -1);
                 if (stopNo != -1) {
                     Route route = (Route) intent
-                            .getSerializableExtra(BidmPrototype.INTENT_ROUTE);
+                            .getSerializableExtra(AddBusInfoDialogManager.INTENT_ROUTE);
                     addBusInfo(new BusInfo(stopNo,
                             route.getRouteNo(),
                             route.getDirectionId()));
