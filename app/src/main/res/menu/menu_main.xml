@@ -17,4 +17,9 @@
         android:orderInCategory="100"
         android:title="@string/action_inject_sample_data"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_delete_local_data"
+        android:orderInCategory="100"
+        android:title="@string/action_delete_local_data"
+        app:showAsAction="never"/>
 </menu>

@@ -4,18 +4,19 @@ import android.content.Context;
 import android.util.Log;
 
 import com.orchard.seg.busbump.model.Route;
+import com.orchard.seg.busbump.network.OCTranspoRestClient;
 import com.orchard.seg.busbump.parser.JsonRouteParser;
 
 
 import java.io.IOException;
 import java.util.List;
 
-public class GetRoutes<C extends Context> extends RestTask <Integer, List<Route>, C> {
+public class GetRoutes extends RestTask <Integer, List<Route>> {
 
     private static final String TAG = "GetRoutes";
 
-    public GetRoutes(C context) {
-        super(context);
+    public GetRoutes(OCTranspoRestClient restClient) {
+        super(restClient);
     }
 
     @Override
@@ -39,12 +40,12 @@ public class GetRoutes<C extends Context> extends RestTask <Integer, List<Route>
         }
     }
 
-    protected void onPostExecute(List<Route> routes, C context) {
+    protected void onPostExecute(List<Route> routes) {
         //Todo: Make abstract once GetArrivals is subclassed
     }
 
     @Override
-    protected void onCancelled(List<Route> routes, C context) {
+    protected void onCancelled(List<Route> routes) {
         //Todo: Make abstract once GetArrivals is subclassed
     }
 }

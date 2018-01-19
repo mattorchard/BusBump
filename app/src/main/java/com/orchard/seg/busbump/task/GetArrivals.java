@@ -13,12 +13,12 @@ import com.orchard.seg.busbump.parser.JsonArrivalParser;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-public class GetArrivals <C extends Context> extends RestTask <BusInfo, Arrivals[], C> {
+public class GetArrivals extends RestTask <BusInfo, Arrivals[]> {
 
     private static final String TAG = "GetArrivals";
 
-    public GetArrivals(C context) {
-        super(context);
+    public GetArrivals(OCTranspoRestClient restClient) {
+        super(restClient);
     }
 
     private Arrivals fetchArrivalsForBusInfo(BusInfo busInfo) throws IOException{
@@ -48,12 +48,12 @@ public class GetArrivals <C extends Context> extends RestTask <BusInfo, Arrivals
         return arrivalsArray;
     }
 
-    protected void onPostExecute(Arrivals[] arrivals, C context) {
+    protected void onPostExecute(Arrivals[] arrivals) {
         //Todo: Make abstract once GetArrivals is subclassed
     }
 
     @Override
-    protected void onCancelled(Arrivals[] partialResults, C context) {
+    protected void onCancelled(Arrivals[] partialResults) {
         //Todo: Make abstract once GetArrivals is subclassed
     }
 }
