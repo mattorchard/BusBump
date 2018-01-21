@@ -21,6 +21,9 @@
     <!-- Route Item -->
     <string name="route_item_description">99 Main</string>
     <string name="dialog_bus_info_name">name (optional)</string>
+    <string name="menu_bus_info_color">Edit color</string>
+    <string name="menu_bus_info_name">Edit name</string>
+    <string name="menu_bus_info_delete">Delete</string>
 
 
 </resources>
