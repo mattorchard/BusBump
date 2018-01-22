@@ -2,18 +2,94 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:id="@+id/cv_item_bus_info_container"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     card_view:cardCornerRadius="4dp"
-    android:layout_margin="3dp">
+    android:layout_margin="3dp"
+    card_view:cardBackgroundColor="@color/blue_grey">
 
-    <TextView
-        android:padding="5dp"
-        android:id="@+id/tv_item_bus_info_placeholder"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Placeholder"
-        style="@style/TextAppearance.AppCompat.Body1"/>
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:id="@+id/sp_item_bus_info_name_space"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tv_item_bus_info_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/item_bus_info_name"
+                style="@style/TextAppearance.AppCompat.Subhead.Inverse"/>
+
+
+            <ImageView
+                android:id="@+id/iv_item_bus_info_error_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@drawable/ic_error_outline_white_24dp"
+                android:tint="@color/colorAccent"
+                android:contentDescription="@string/item_bus_info_error_icon"/>
+
+            <ProgressBar
+                android:id="@+id/pb_item_bus_info_fetch"
+                android:visibility="invisible"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_bus_info_time_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:text="@string/item_bus_info_time_first"
+                style="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/tv_bus_info_time_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/item_bus_info_time_second"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                style="@style/TextAppearance.AppCompat.Subhead.Inverse"/>
+
+            <TextView
+                android:id="@+id/tv_bus_info_time_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/item_bus_info_time_third"
+                android:layout_below="@+id/tv_bus_info_time_second"
+                android:layout_alignParentEnd="true"
+                style="@style/TextAppearance.AppCompat.Subhead.Inverse"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
