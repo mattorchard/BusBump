@@ -16,7 +16,7 @@ public class BusInfoRepository extends SQLiteOpenHelper {
     private static final String TAG = "BusInfoRepository";
 
     private static final String DATABASE_NAME = "BUS_INFO_DATABASE";
-    private static  final int DATABASE_VERSION = 1;
+    private static  final int DATABASE_VERSION = 2;
 
     public BusInfoRepository(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,7 +32,7 @@ public class BusInfoRepository extends SQLiteOpenHelper {
                 + ", " + BusInfoTable.COL_DIRECTION_NO.get() + " INTEGER"
                 + ", " + BusInfoTable.COL_LOAD_ON_LAUNCH.get() + " INTEGER"
                 + ", " + BusInfoTable.COL_NAME.get() + " TEXT"
-                + ", " + BusInfoTable.COL_COLOR.get() + " TEXT"
+                + ", " + BusInfoTable.COL_COLOR.get() + " INTEGER"
                 + ");");
         Log.w(TAG, "BusInfo table created");
     }
@@ -97,8 +97,8 @@ public class BusInfoRepository extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(BusInfoTable.COL_LOAD_ON_LAUNCH.get())));
         String name =
                 cursor.getString(cursor.getColumnIndex(BusInfoTable.COL_NAME.get()));
-        String color =
-                cursor.getString(cursor.getColumnIndex(BusInfoTable.COL_COLOR.get()));
+        int color =
+                cursor.getInt(cursor.getColumnIndex(BusInfoTable.COL_COLOR.get()));
         BusInfo busInfo = new BusInfo(stopNo, busNo, directionNo, loadOnLaunch, name, color);
         busInfo.setId(id);
         return busInfo;

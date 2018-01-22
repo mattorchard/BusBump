@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Space;
 import android.widget.TextView;
@@ -197,7 +196,7 @@ public class BusInfoViewHolder
 
     private void animateBackgroundColor() {
         Resources resources = mRootView.getContext().getResources();
-        int colorFrom = resources.getColor(R.color.blue);
+        int colorFrom = resources.getColor(mBusInfo.getColor());
         int colorTo = grayscale(colorFrom);
         ValueAnimator colorAnimation =
                 ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
@@ -207,7 +206,6 @@ public class BusInfoViewHolder
             public void onAnimationUpdate(ValueAnimator animator) {
                 mRootView.setCardBackgroundColor((int) animator.getAnimatedValue());
             }
-
         });
         colorAnimation.start();
     }
