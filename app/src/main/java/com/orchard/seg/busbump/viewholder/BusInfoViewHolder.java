@@ -196,7 +196,9 @@ public class BusInfoViewHolder
 
     private void animateBackgroundColor() {
         Resources resources = mRootView.getContext().getResources();
-        int colorFrom = resources.getColor(mBusInfo.getColor());
+        int colorFrom = (mBusInfo.getColor() == Color.BLACK)
+                ? resources.getColor(R.color.blue_grey)
+                : mBusInfo.getColor();
         int colorTo = grayscale(colorFrom);
         ValueAnimator colorAnimation =
                 ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);

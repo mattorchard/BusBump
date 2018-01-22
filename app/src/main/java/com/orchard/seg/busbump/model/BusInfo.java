@@ -5,7 +5,7 @@ package com.orchard.seg.busbump.model;
 import java.util.Locale;
 
 public class BusInfo {
-    private static final int DEFAULT_COLOR = 0xFF3D4DB7;
+    private static final int DEFAULT_COLOR = 0xFF000000;
 
     private long mId = -1;
 
