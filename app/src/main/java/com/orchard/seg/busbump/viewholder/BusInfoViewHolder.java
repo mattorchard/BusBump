@@ -197,18 +197,25 @@ public class BusInfoViewHolder
     private void animateBackgroundColor() {
         Resources resources = mRootView.getContext().getResources();
         int colorFrom = (mBusInfo.getColor() == Color.BLACK)
-                ? resources.getColor(R.color.blue_grey)
+                ? resources.getColor(R.color.blue)
                 : mBusInfo.getColor();
-        int colorTo = grayscale(colorFrom);
+        animateColor(colorFrom, grayscale(colorFrom), 30 * 1000, new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animator) {
+                        mRootView.setCardBackgroundColor((int) animator.getAnimatedValue());
+                    }
+                });
+    }
+
+    private void animateColor(
+            @ColorInt int colorFrom,
+            @ColorInt int colorTo,
+            int duration,
+            ValueAnimator.AnimatorUpdateListener animationListener) {
         ValueAnimator colorAnimation =
                 ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        colorAnimation.setDuration(30 * 1000);
-        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animator) {
-                mRootView.setCardBackgroundColor((int) animator.getAnimatedValue());
-            }
-        });
+        colorAnimation.setDuration(duration);
+        colorAnimation.addUpdateListener(animationListener);
         colorAnimation.start();
     }
 
