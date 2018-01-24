@@ -1,9 +1,12 @@
 package com.orchard.seg.busbump.model;
 
 
+
 import java.util.Locale;
 
 public class BusInfo {
+    private static final int DEFAULT_COLOR = 0xFF000000;
+
     private long mId = -1;
 
     private final int mStopNumber;
@@ -12,7 +15,7 @@ public class BusInfo {
 
     private final boolean mLoadOnLaunch;
     private final String mName;
-    private final String mColor;
+    private final int mColor;
 
     private Arrivals mArrivals;
 
@@ -22,7 +25,7 @@ public class BusInfo {
                    int directionNumber,
                    boolean loadOnLaunch,
                    String name,
-                   String color) {
+                   int color) {
         this.mStopNumber = stopNumber;
         this.mBusNumber = busNumber;
         this.mDirectionNumber = directionNumber;
@@ -32,16 +35,13 @@ public class BusInfo {
     }
 
     public BusInfo(int stopNumber, int busNumber, int directionNumber) {
-        this(stopNumber, busNumber, directionNumber, false, null, null);
+        this(stopNumber, busNumber, directionNumber, false, null, DEFAULT_COLOR);
     }
 
-    public BusInfo(int stopNumber, int busNumber) {
-        this(stopNumber, busNumber, 0);
-    }
 
     @Override
     public String toString() {
-        return String.format(Locale.US, "BusInfo(%d %d, %d, %d, %b, %s, %s)",
+        return String.format(Locale.US, "BusInfo(%d %d, %d, %d, %b, %s, %d)",
                 mId,
                 mStopNumber,
                 mBusNumber,
@@ -83,7 +83,7 @@ public class BusInfo {
         return mName;
     }
 
-    public String getColor() {
+    public int getColor() {
         return mColor;
     }
 

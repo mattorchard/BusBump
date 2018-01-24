@@ -8,14 +8,14 @@ public class Arrivals {
     private final Date mAcquiredAt;
     private final Date[] mArrivals;
 
-    public Arrivals(Date acquiredAt, Date[] mArrivals) {
-        if (mArrivals.length < 1) {
+    public Arrivals(Date acquiredAt, Date[] arrivals) {
+        if (arrivals.length == 0) {
             throw new IllegalArgumentException("Arrivals must have at least one arrival");
-        } else if (mArrivals.length > 3) {
+        } else if (arrivals.length > 3) {
             throw new IllegalArgumentException("Arrivals cannot have more than three arrivals");
         }
+        this.mArrivals = arrivals;
         this.mAcquiredAt = acquiredAt;
-        this.mArrivals = mArrivals;
     }
 
     @Override
@@ -30,5 +30,9 @@ public class Arrivals {
 
     public Date getArrival(int index) {
         return mArrivals[index];
+    }
+
+    public int getNumArrivals() {
+        return this.mArrivals.length;
     }
 }

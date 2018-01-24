@@ -1,6 +1,8 @@
 package com.orchard.seg.busbump.parser;
 
 
+import android.util.Log;
+
 import com.orchard.seg.busbump.model.Arrivals;
 import com.orchard.seg.busbump.model.BusInfo;
 
@@ -35,6 +37,7 @@ public class JsonArrivalParser extends OCTranspoJsonParser implements ArrivalPar
                 return arrivalsFromJson(json.getJSONObject("Route"));
             }
         } catch (JSONException ex) {
+            Log.e("FooBar", message);
             throw new IOException(ex);
         }
     }
